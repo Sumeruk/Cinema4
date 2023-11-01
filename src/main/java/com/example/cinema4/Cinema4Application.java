@@ -6,21 +6,26 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(scanBasePackages={"com.example.cinema4.repos"})
+@SpringBootApplication(scanBasePackages={"com.example.cinema4.repos", "com.example.cinema4.controllers"})
 public class Cinema4Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Cinema4Application.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(SessionRepos  hr){
 
-        return args ->{
 
-            System.out.println(hr.findAll().toString());
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(SessionRepos  hr){
+//
+//        return args ->{
+//
+//            System.out.println(hr.findAll().toString());
+//        };
+//    }
 
 }
