@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(scanBasePackages={"com.example.cinema4.repos", "com.example.cinema4.controllers"})
+@SpringBootApplication
 public class Cinema4Application {
 
     public static void main(String[] args) {
@@ -19,6 +19,7 @@ public class Cinema4Application {
 
 
 
+//    scanBasePackages={"com.example.cinema4.repos", "com.example.cinema4.controllers"}
 //    @Bean
 //    CommandLineRunner commandLineRunner(SessionRepos  hr){
 //

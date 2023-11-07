@@ -13,9 +13,7 @@ import java.util.List;
 public class Session {
     @Id
     private long session_id;
-    @MappedCollection(idColumn = "num_hall", keyColumn = "num_hall")
-    private List<Hall> halls;
+    private Hall hall;
     private Time time_of_start;
-    @MappedCollection(idColumn = "film_id", keyColumn = "film_id")
-    private List<Film> films;
+    private Film film;
 }

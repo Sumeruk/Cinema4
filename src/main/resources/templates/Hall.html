@@ -6,6 +6,11 @@
     <title>Залы</title>
 </head>
 <body>
-ererer
+<div th:each="halls : ${hallInformation}">
+    <div>
+        <p th:text="${halls.getNum_hall()}"></p>
+    </div>
+
+</div>
 </body>
 </html>

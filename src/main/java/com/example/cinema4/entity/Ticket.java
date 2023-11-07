@@ -14,9 +14,7 @@ public class Ticket {
     private long ticket_id;
     private int num_place;
     private int num_row;
-    @MappedCollection(idColumn = "client_id", keyColumn = "client_id")
-    private List<Client> clients;
+    private Client client;
     private int price;
-    @MappedCollection(idColumn = "session_id", keyColumn = "session_id")
-    private List<Session> sessions;
+    private Session session;
 }
