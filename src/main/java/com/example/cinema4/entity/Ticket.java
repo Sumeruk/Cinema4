@@ -11,10 +11,10 @@ import java.util.List;
 @Table("Ticket")
 public class Ticket {
     @Id
-    private long ticket_id;
+    private Long ticket_id;
     private int num_place;
     private int num_row;
-    private Client client;
+    private int client_id;
     private int price;
-    private Session session;
+    private int session_id;
 }

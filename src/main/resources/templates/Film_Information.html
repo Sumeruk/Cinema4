@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">>
 <head>
     <meta charset="UTF-8">
     <title>Информация о фильме</title>
 </head>
 <body>
-<span th:text="${filmInformation.getName_film()}"></span>
-<span th:text="${filmInformation.getAge_limit()}"></span>
-<span th:text="${filmInformation.getDuration()}"></span>
-<span th:text="${filmInformation.getGenre()}"></span>
+<div>
+    <span th:text="${filmInformation.getName_film()}"></span>
+    <span th:text="${filmInformation.getAge_limit()}"></span>
+    <span th:text="${filmInformation.getDuration()}"></span>
+    <span th:text="${filmInformation.getGenre()}"></span>
+</div>
+<div>
+    <a th:href="@{'/films'}" th:text="Фильмы"/>
+</div>
 </body>
 </html>

@@ -5,26 +5,35 @@ import com.example.cinema4.repos.FilmRepos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class FilmControllers {
-//    @Autowired
+    //    @Autowired
     private final FilmRepos filmRepos;
 
     @GetMapping("/films")
     public String getAllSupplies(ModelMap model) {
+        model.addAttribute("film", new Film());
         model.addAttribute("films", filmRepos.findAll());
         return "Films";
     }
+    // todo сделать добавление
+    @PostMapping("/films/save")
+    public String saveFilm(@ModelAttribute("film") Film film) {
+        filmRepos.save(film);
+        return "redirect:/films";
+    }
 
     @GetMapping("/film/film_id/{id}")
-    public String getFilmInformation(ModelMap model, @PathVariable Long id){
+    public String getFilmInformation(ModelMap model, @PathVariable Long id) {
         model.addAttribute("filmInformation", filmRepos.findById(id).get());
         return "Film_Information";
     }
+
+
+
 }

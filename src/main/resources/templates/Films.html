@@ -1,14 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">>
 <head>
     <meta charset="UTF-8">
     <title>Фильмы</title>
 </head>
 <body>
-<div th:each="films : ${films}">
+<div>
+    <a th:href="@{'/halls'}" th:text="Залы"/>
+    <a th:href="@{'/films'}" th:text="Фильмы"/>
+    <a th:href="@{'/sessions'}" th:text="Сеансы"/>
+</div>
+
+<div>
+    <form th:action="@{/films/save}" th:object="${film}" method="post">
+        <input type="text" name="nameFilm" th:value="*{name_film}" placeholder="Введите название фильма">
+        <label>
+            <input type="number" name="addAge_limit" th:value="*{age_limit}" >
+        </label>
+        <label>
+            <input type="number" name="addDuration" th:value="*{duration}" >
+        </label>
+        <input type="text" name="addGenre" th:value="*{genre}" placeholder="Введите жанр">
+        <button type="submit">Добавить</button>
+
+    </form>
+</div>
+
+<div th:each="film : ${films}">
   <td>
-      <a th:href="@{'/film/film_id/' + ${films.getFilm_id()}}" th:text="${films.getName_film()}"></a>
+      <a th:href="@{'/film/film_id/' + ${film.getFilm_id()}}" th:text="${film.getName_film()}"></a>
   </td>
 </div>
+
+
+
 </body>
 </html>
+
+<!--th:text="${film.getNameFilm()}"-->

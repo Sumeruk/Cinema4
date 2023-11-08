@@ -24,8 +24,8 @@ public class Cinema4Application {
 //    CommandLineRunner commandLineRunner(SessionRepos  hr){
 //
 //        return args ->{
-//
-//            System.out.println(hr.findAll().toString());
+//            переделать
+//            System.out.println(hr.findAllByNameFilm("Barbie").toString());
 //        };
 //    }
 
