@@ -1,7 +1,7 @@
 package com.example.cinema4.repos;
 
 import com.example.cinema4.entity.Ticket;
-ъimport org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
