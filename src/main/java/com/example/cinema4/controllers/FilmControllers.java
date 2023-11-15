@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 public class FilmControllers {
-    //    @Autowired
+
     private final FilmRepos filmRepos;
 
     @GetMapping("/films")
@@ -22,7 +22,7 @@ public class FilmControllers {
         return "Films";
     }
     // todo сделать добавление
-    @PostMapping("/films/save")
+    @PostMapping("/films")
     public String saveFilm(@ModelAttribute("film") Film film) {
         filmRepos.save(film);
         return "redirect:/films";

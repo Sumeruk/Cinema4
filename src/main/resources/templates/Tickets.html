@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
+<div>
+    <a th:href="@{'/halls'}" th:text="Залы"></a>
+    <a th:href="@{'/films'}" th:text="Фильмы"></a>
+    <a th:href="@{'/sessions'}" th:text="Сеансы"></a>
+</div>
+<!--todo сделать красиво табличкой-->
+<div>
+    <form th:action="@{/ticketsBySessions}" method="post">
+        <input type="number" id="name" name="session_id" onkeyup="myFunction()" />
+        <table id="myTable">
+            <tr>
+                <th>Номер сеанса</th>
+                <th>Номер клиента</th>
+                <th>Номер места</th>
+                <th>Номер ряда</th>
+                <th>Цена</th>
+            </tr>
+            <tr th:each="ticket : ${tickets}">
+                <td>
+                    <span th:text="${ticket.getSession_id()}"></span>
+                </td>
+                <td>
+                   <span th:text="${ticket.getClient_id()}"></span>
+                </td>
+                <td>
+                    <span th:text="${ticket.getNum_place()}"></span>
+                </td>
+                <td>
+                    <span th:text="${ticket.getNum_row()}"></span>
+                </td>
+                <td>
+                    <span th:text="${ticket.getPrice()}"></span>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<script>
+    function myFunction() {
+        // Объявить переменные
+        var nameInput, unitsInput, nameFilter, table, tr, td, i, txtValue;
+        nameInput = document.getElementById("inputNameSort");
+        nameFilter = nameInput.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(nameFilter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

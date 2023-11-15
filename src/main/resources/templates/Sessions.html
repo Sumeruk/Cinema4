@@ -8,21 +8,49 @@
 <body>
 <div>
     <form th:action="@{/sessionsByFilms}" method="post">
-        <input type="text" id="name" name="name_film" placeholder="Введите название фильма"/>
-        <table>
+        <input type="text" id="name" name="name_film" onkeyup="myFunction()" placeholder="Введите название фильма"/>
+        <table id="myTable">
+            <tr>
+                <th>Номер сеанса</th>
+                <th>Номер зала</th>
+                <th>Время начала</th>
+            </tr>
             <tr th:each="sessionWithFilm : ${sessionsWithFilm}">
                 <td th:text="${sessionWithFilm.getSession_id()}"></td>
-                <td th:text="${sessionWithFilm.getFilmId()}"></td>
                 <td th:text="${sessionWithFilm.getNumHall()}"></td>
                 <td th:text="${sessionWithFilm.getTime_of_start()}"></td>
             </tr>
-
         </table>
-
-        <a th:href="@{/sessions}" th:text="Сеансы"/>
-        <a th:href="@{'/halls'}" th:text="Залы"/>
-        <a th:href="@{'/films'}" th:text="Фильмы"/>
     </form>
 </div>
+<div>
+    <a th:href="@{/sessions}" th:text="Сеансы"/>
+    <a th:href="@{'/halls'}" th:text="Залы"/>
+    <a th:href="@{'/films'}" th:text="Фильмы"/>
+    <a th:href="@{'/tickets'}" th:text="Билеты"/>
+
+</div>
+<script>
+    function myFunction() {
+        // Объявить переменные
+        var nameInput, unitsInput, nameFilter, table, tr, td, i, txtValue;
+        nameInput = document.getElementById("inputNameSort");
+        nameFilter = nameInput.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(nameFilter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 </body>
 </html>
