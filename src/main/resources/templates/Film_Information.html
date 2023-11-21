@@ -4,16 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Информация о фильме</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            background-color: #333;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <span th:text="${filmInformation.getName_film()}"></span>
-    <span th:text="${filmInformation.getAge_limit()}"></span>
-    <span th:text="${filmInformation.getDuration()}"></span>
-    <span th:text="${filmInformation.getGenre()}"></span>
+<div class="menu">
+    <ul>
+        <li><a th:href="@{'/films'}">Назад</a></li>
+    </ul>
 </div>
 <div>
-    <a th:href="@{'/films'}" th:text="Фильмы"/>
+    <table id="myTable">
+        <tr>
+            <th>Название фильма</th>
+            <th>Возрастное ограничение</th>
+            <th>Продолжительность</th>
+            <th>Жанр</th>
+        </tr>
+        <tr>
+            <td th:text="${filmInformation.getName_film()}"></td>
+            <td th:text="${filmInformation.getAge_limit()}"></td>
+            <td th:text="${filmInformation.getDuration()}"></td>
+            <td th:text="${filmInformation.getGenre()}"></td>
+        </tr>
+    </table>
 </div>
+
 </body>
 </html>

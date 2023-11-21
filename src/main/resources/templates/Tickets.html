@@ -3,12 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Tickets</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            background-color: #333;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <a th:href="@{'/halls'}" th:text="Залы"></a>
-    <a th:href="@{'/films'}" th:text="Фильмы"></a>
-    <a th:href="@{'/sessions'}" th:text="Сеансы"></a>
+<div class="menu">
+    <ul>
+        <li><a th:href="@{'/halls'}">Залы</a></li>
+        <li><a th:href="@{'/films'}">Фильмы</a></li>
+        <li><a th:href="@{'/sessions'}">Сеансы</a></li>
+    </ul>
 </div>
 <!--todo сделать красиво табличкой-->
 <div>
