@@ -106,7 +106,7 @@
              Edit
         </td>
         <td>
-            Delete
+            <a th:href="@{'/film/delete/' + ${filmec.getFilm_id()}}" th:text="Delete" />
         </td>
     </tr>
 </table>

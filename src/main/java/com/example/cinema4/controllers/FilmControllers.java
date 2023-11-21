@@ -21,7 +21,6 @@ public class FilmControllers {
         model.addAttribute("films", filmRepos.findAll());
         return "Films";
     }
-    // todo сделать добавление
     @PostMapping("/films")
     public String saveFilm(@ModelAttribute("film") Film film) {
         filmRepos.save(film);
@@ -34,6 +33,11 @@ public class FilmControllers {
         return "Film_Information";
     }
 
+    @GetMapping("/film/delete/{id}")
+    public String deleteFilmInformation( @PathVariable Long id){
+        filmRepos.deleteById(id);
+        return "redirect:/films";
+    }
 
 
 }

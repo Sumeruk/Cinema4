@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class Session {
     private Time time_of_start;
     @Column("film_id")
     private int filmId;
+    private Date date_film;
 
     @MappedCollection(idColumn = "session_id", keyColumn = "session_id")
     private final Set<Ticket> tickets;

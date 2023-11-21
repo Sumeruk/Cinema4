@@ -37,6 +37,39 @@
             background-color: #ddd;
             color: black;
         }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:hover {
+            border-color: #66afe9;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        input:active {
+            border-color: #0056b3;
+        }
+
+        a {
+            color: #007bff; /* Цвет текста */
+            text-decoration: none; /* Убираем подчеркивание */
+            transition: color 0.3s; /* Плавное изменение цвета при наведении */
+        }
+
+        /* Стили для наведения на ссылку */
+        a:hover {
+            color: #0056b3; /* Новый цвет текста при наведении */
+        }
+
     </style>
 </head>
 <body>
@@ -48,22 +81,44 @@
     </ul>
 </div>
 <div>
-    <form th:action="@{/sessionsByFilms}" method="post">
-        <input type="text" id="name" name="name_film" onkeyup="myFunction()" placeholder="Введите название фильма"/>
-        <table id="myTable">
-            <tr>
-                <th>Номер сеанса</th>
-                <th>Номер зала</th>
-                <th>Время начала</th>
-            </tr>
-            <tr th:each="sessionWithFilm : ${sessionsWithFilm}">
-                <td th:text="${sessionWithFilm.getSession_id()}"></td>
-                <td th:text="${sessionWithFilm.getNumHall()}"></td>
-                <td th:text="${sessionWithFilm.getTime_of_start()}"></td>
-            </tr>
-        </table>
-    </form>
+    <table>
+        <tr>
+            <th>Название фильма</th>
+            <th>Время начала</th>
+            <th>Дата</th>
+        </tr>
+        <tr th:each="sessions : ${filmSessions}">
+            <td>
+                <a  th:href="@{'/tickets/' + ${sessions.getSession_id()}}" th:text="${sessions.getName_film()}"/>
+            </td>
+            <td>
+                <span th:text="${sessions.getTime_of_start()}"></span>
+            </td>
+            <td>
+                <span th:text="${sessions.getDate_film()}"></span>
+            </td>
+        </tr>
+    </table>
 </div>
+<!--<div>-->
+<!--    <form th:action="@{/sessionsByFilms}" method="post">-->
+<!--        <input type="text" id="name" name="name_film" onkeyup="myFunction()" placeholder="Введите название фильма"/>-->
+<!--        <table id="myTable">-->
+<!--            <tr>-->
+<!--                <th>Номер сеанса</th>-->
+<!--                <th>Номер зала</th>-->
+<!--                <th>Время начала</th>-->
+<!--                <th>Дата начала</th>-->
+<!--            </tr>-->
+<!--            <tr th:each="sessionWithFilm : ${sessionsWithFilm}">-->
+<!--                <td th:text="${sessionWithFilm.getSession_id()}"></td>-->
+<!--                <td th:text="${sessionWithFilm.getNumHall()}"></td>-->
+<!--                <td th:text="${sessionWithFilm.getTime_of_start()}"></td>-->
+<!--                <td th:text="${sessionWithFilm.getDate_film()}"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </form>-->
+<!--</div>-->
 
 <script>
     function myFunction() {

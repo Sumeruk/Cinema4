@@ -1,5 +1,6 @@
 package com.example.cinema4.repos;
 
+import com.example.cinema4.DTO.FilmSessionDTO;
 import com.example.cinema4.entity.Session;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SessionRepos extends CrudRepository<Session, Long> {
@@ -16,6 +18,11 @@ public interface SessionRepos extends CrudRepository<Session, Long> {
             "on F.film_id = S.film_id " +
             "where name_film = :name_film")
     List<Session> findAllByNameFilm(@Param("name_film") String name_film);
+
+    @Query("SELECT name_film, session_id, time_of_start, date_film" +
+            " FROM \"Film\" JOIN \"Session\" USING(film_id)" +
+            "ORDER BY date_film, time_of_start")
+    List<FilmSessionDTO> findAllWithNameFilm();
 
 
 }

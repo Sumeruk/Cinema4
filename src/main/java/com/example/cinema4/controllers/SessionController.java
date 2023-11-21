@@ -18,7 +18,7 @@ public class SessionController {
 
     @GetMapping("/sessions")
     public String showSessions(Model model){
-//        model.addAttribute("sessions", sessionRepos.findAll());
+        model.addAttribute("filmSessions", sessionRepos.findAllWithNameFilm());
         return "Sessions";
     }
 

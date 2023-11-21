@@ -43,27 +43,22 @@
     <ul>
         <li><a th:href="@{'/halls'}">Залы</a></li>
         <li><a th:href="@{'/films'}">Фильмы</a></li>
-        <li><a th:href="@{'/sessions'}">Сеансы</a></li>
+        <li><a th:href="@{'/sessions'}">Назад</a></li>
     </ul>
 </div>
 <!--todo сделать красиво табличкой-->
 <div>
     <form th:action="@{/ticketsBySessions}" method="post">
-        <input type="number" id="name" name="session_id" onkeyup="myFunction()" />
         <table id="myTable">
             <tr>
-                <th>Номер сеанса</th>
-                <th>Номер клиента</th>
+                <th>Номер зала</th>
                 <th>Номер места</th>
                 <th>Номер ряда</th>
                 <th>Цена</th>
             </tr>
             <tr th:each="ticket : ${tickets}">
                 <td>
-                    <span th:text="${ticket.getSession_id()}"></span>
-                </td>
-                <td>
-                   <span th:text="${ticket.getClient_id()}"></span>
+                    <span th:text="${ticket.get()}"></span>
                 </td>
                 <td>
                     <span th:text="${ticket.getNum_place()}"></span>

@@ -47,11 +47,23 @@
         <li><a th:href="@{'/tickets'}">Билеты</a></li>
     </ul>
 </div>
-<div th:each="halls : ${hallInformation}">
-    <div>
-        <p th:text="${halls.getNum_hall()}"></p>
-    </div>
-
-</div>
+<table>
+    <tr>
+        <th>Номер зала</th>
+        <th>Количество рядов</th>
+        <th>Количество мест в ряду</th>
+    </tr>
+    <tr th:each="halls : ${hallInformation}">
+        <td>
+            <p th:text="${halls.getNum_hall()}"></p>
+        </td>
+        <td>
+            <p th:text="${halls.getNum_of_row()}"></p>
+        </td>
+        <td>
+            <p th:text="${halls.getNum_of_seat_row()}"></p>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
