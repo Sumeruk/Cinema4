@@ -16,6 +16,6 @@ public class Client {
     private String name;
     private Date birthday;
 
-    @MappedCollection(idColumn = "client_id", keyColumn = "client_id")
-    private final Set<Ticket> tickets;
+//    @MappedCollection(idColumn = "client_id", keyColumn = "client_id")
+//    private final Set<Ticket> tickets;
 }

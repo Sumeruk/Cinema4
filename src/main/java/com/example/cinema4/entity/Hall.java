@@ -15,8 +15,8 @@ public class Hall {
     private int num_of_row;
     private int num_of_seat_row;
 
-    @MappedCollection(idColumn = "num_hall", keyColumn = "numHall")
-    private final Set<Session> sessions;
+//    @MappedCollection(idColumn = "num_hall", keyColumn = "numHall")
+//    private final Set<Session> sessions;
 
     @Override
     public String toString() {

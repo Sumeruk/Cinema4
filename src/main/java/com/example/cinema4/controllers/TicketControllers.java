@@ -1,5 +1,7 @@
 package com.example.cinema4.controllers;
 
+import com.example.cinema4.entity.Film;
+import com.example.cinema4.entity.Ticket;
 import com.example.cinema4.repos.TicketRepos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,15 +18,14 @@ public class TicketControllers {
     private final TicketRepos ticketRepos;
 
     @GetMapping("/tickets")
-    public String getTickets(){
+    public String getTickets(Model model){
+        model.addAttribute("newTicket", new Ticket());
         return "Tickets";
     }
-// todo сделать красивую табличку
-    @GetMapping("/tickets/{id}")
-    public String getTicketsBySession(Model model, @PathVariable Integer id){
-        model.addAttribute("tickets", ticketRepos.findAllBySession_id(id));
+    @GetMapping("/tickets/{sessionId}")
+    public String getTicketsBySession(Model model, @PathVariable Integer sessionId){
+        model.addAttribute("tickets", ticketRepos.findTicketsBySession_id(sessionId));
         return "Tickets";
     }
-
 
 }

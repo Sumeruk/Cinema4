@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Title</title>
 
     <style>
@@ -77,9 +77,31 @@
     <ul>
         <li><a th:href="@{'/halls'}">Залы</a></li>
         <li><a th:href="@{'/films'}">Фильмы</a></li>
-        <li><a th:href="@{'/tickets'}">Билеты</a></li>
+<!--        <li><a th:href="@{'/tickets'}">Билеты</a></li>-->
     </ul>
 </div>
+<div>
+    <form th:action="@{/sessions/newSession}" method="post"  th:object="${newSession}" id="myForm">
+        <label for="num_hall">Выберите зал:</label>
+        <select id="num_hall" name="num_hall" th:field="*{numHall}">
+            <option th:each="hall : ${halls}" th:value="${hall}" th:text="${hall}"></option>
+        </select>
+
+        <input id="input2" type="time"  th:field="*{time_of_start}"
+               onkeydown="navigateInputs(event, 'input3')">
+        <label for="name_film">Выберите фильм:</label>
+        <select id="name_film" name="name_film" th:field="*{film_name}">
+            <option th:each="film : ${films}" th:value="${film}" th:text="${film}"></option>
+        </select>
+
+        <input id="input4" type="date" th:field="*{date_film}"  placeholder="Дата">
+        <p class="error-message" id="errorMessage"></p>
+
+        <button type="submit" onclick="validateForm(event)">Добавить</button>
+
+    </form>
+</div>
+<p th:text="${resultOfSave} ? 'Ok' : 'Ошибка при сохранении. Данные введены неверно'"></p>
 <div>
     <table>
         <tr>
@@ -119,6 +141,52 @@
 <!--        </table>-->
 <!--    </form>-->
 <!--</div>-->
+
+<script>
+    function validateForm(event) {
+        var successMessage = document.getElementById('successMessage');
+        var dateInput = document.getElementById('input4');
+        var timeInput = document.getElementById('input2');
+        var errorMessage = document.getElementById('errorMessage');
+
+        // Проверка всех обязательных полей
+        var datePattern =
+            /^(2000-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|[2-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]))$/;
+        var timePattern = /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
+
+        if (!datePattern.test(dateInput.value)) {
+            errorMessage.textContent = 'Неправильный формат даты';
+            event.preventDefault(); // Отменить отправку формы
+            dateInput.value = '';
+            return;
+        }
+
+        if (!timePattern.test(timeInput.value)) {
+            errorMessage.textContent = 'Неправильный формат времени';
+            event.preventDefault(); // Отменить отправку формы
+            timeInput.value = '';
+            return;
+        }
+
+        // Если дата и время прошли проверку, очищаем сообщение об ошибке
+        errorMessage.textContent = '';
+
+    }
+</script>
+
+<script>
+    function navigateInputs(eventt, nextInputId) {
+        if (eventt instanceof KeyboardEvent && eventt.key === "Enter") {
+            eventt.preventDefault(); // Предотвратить отправку формы
+
+            const nextInput = document.getElementById(nextInputId);
+
+            if (nextInput) {
+                nextInput.focus(); // Перейти к следующему полю ввода
+            }
+        }
+    }
+</script>
 
 <script>
     function myFunction() {

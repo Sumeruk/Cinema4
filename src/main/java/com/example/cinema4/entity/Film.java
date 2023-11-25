@@ -18,8 +18,8 @@ public class Film {
     private int duration;
     private String genre;
 
-    @MappedCollection(idColumn = "film_id", keyColumn = "filmId")
-    private Set<Session> sessions;
+//    @MappedCollection(idColumn = "film_id", keyColumn = "filmId")
+//    private Set<Session> sessions;
 
 
 }
