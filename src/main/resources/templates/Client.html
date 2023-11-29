@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu {
+        background-color: #333;
+    }
+
+    .menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu li {
+        display: inline;
+    }
+
+    .menu a {
+        display: inline-block;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .menu a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+</style>
+<body>
+<div class="menu">
+    <ul>
+        <li><a th:href="@{'/halls'}">Залы</a></li>
+        <li><a th:href="@{'/films'}">Фильмы</a></li>
+        <li><a th:href="@{'/sessions'}">Сеансы</a></li>
+    </ul>
+</div>
+
+<div>
+    <form method="post" th:action="@{/clients/newClient}" th:object="${newClient}">
+
+        <label for="name">Введите имя фамилию</label>
+        <input id="name" th:field="*{name}" type="text"
+               onkeydown="navigateInputs(event, 'birthday')" placeholder="Введите имя фамилию ">
+
+        <label for="birthday">Введите дату рождения:</label>
+        <input id="birthday" type="date" th:field="*{birthday}"
+               onkeydown="navigateInputs(event)">
+
+        <p class="error-message" id="errorMessage"></p>
+
+        <button type="submit" onclick="validateForm(event)">Добавить</button>
+    </form>
+</div>
+
+<div>
+    <table id="myTable">
+        <tr>
+            <th>Имя</th>
+            <th>Дата рождения</th>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td>
+                <span th:text="${client.getName()}"></span>
+            </td>
+            <td>
+                <span th:text="${client.getBirthday()}"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    function validateForm(event) {
+        var successMessage = document.getElementById('successMessage');
+        var dateInput = document.getElementById('birthday');
+        var nameInput = document.getElementById('name');
+        var errorMessage = document.getElementById('errorMessage');
+
+        // Проверка всех обязательных полей
+        var datePattern =
+            /^(19|20)\d{2}-(0[1-9]|[12][0-9]|3[01])|[2-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+        var namePattern = /^[а-яА-ЯёЁa-zA-Z]+ [а-яА-ЯёЁa-zA-Z]+ ?[а-яА-ЯёЁa-zA-Z]+$/;
+
+        if (!namePattern.test(nameInput.value)) {
+            errorMessage.textContent = 'Неправильный формат имени';
+            event.preventDefault(); // Отменить отправку формы
+            nameInput.value = '';
+            return;
+        }
+
+        if (!datePattern.test(dateInput.value)) {
+            errorMessage.textContent = 'Неправильный формат даты';
+            event.preventDefault(); // Отменить отправку формы
+            dateInput.value = '';
+            return;
+        }
+
+
+
+        // Если дата и время прошли проверку, очищаем сообщение об ошибке
+        errorMessage.textContent = '';
+
+    }
+</script>
+
+<script>
+    function navigateInputs(eventt, nextInputId) {
+        if (eventt instanceof KeyboardEvent && eventt.key === "Enter") {
+            eventt.preventDefault(); // Предотвратить отправку формы
+
+            const nextInput = document.getElementById(nextInputId);
+
+            if (nextInput) {
+                nextInput.focus(); // Перейти к следующему полю ввода
+            }
+        }
+    }
+</script>
+</body>
+</html>
