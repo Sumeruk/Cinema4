@@ -48,17 +48,29 @@
         <li><a th:href="@{'/halls'}">Залы</a></li>
         <li><a th:href="@{'/films'}">Фильмы</a></li>
         <li><a th:href="@{'/sessions'}">Сеансы</a></li>
+        <li><a th:href="@{'/clients'}">Клиенты</a></li>
+
     </ul>
 </div>
 <!--todo сделать красиво табличкой-->
 <div class="inButton">
+    <form method="post" th:action = "@{/tickets/{sessionId}/saveTicket}" th:object = "${newTicket}">
+        <input type="text">
+<!--        <label for="num_row">Выберите место:</label>-->
+<!--        <select id="num_row" name="num_row" th:field="*{num_row}">-->
+<!--            <option th:each="key : ${keys}" th:value="${key}" th:text="${key}"></option>-->
+<!--        </select>-->
 
-        <input type="number" placeholder="Цена">
+<!--        <label for="num_place">Values:</label>-->
+<!--        <select id="num_place" name="num_place" th:field="*{num_row}">-->
+<!--            <option th:each="value : ${values}" th:value="${value}" th:text="${value}">Value</option>-->
+<!--        </select>-->
+
         <button type="submit">Купить билет</button>
-
+    </form>
 </div>
 <div>
-    <!--    <form th:action="@{/ticketsBySessions}" method="post">-->
+
     <table id="myTable">
         <tr>
             <th>Номер зала</th>
@@ -84,7 +96,6 @@
     </table>
     <!--    </form>-->
 </div>
-
 
 
 </body>

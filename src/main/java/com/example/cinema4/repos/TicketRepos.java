@@ -7,14 +7,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TicketRepos extends CrudRepository<Ticket, Long> {
     @Query("SELECT * FROM public.\"Ticket\" WHERE session_id = :ses_id")
     Iterable<Ticket> findAllBySession_id(@Param("ses_id") Integer session_id);
-    @Query("select num_hall, num_place, num_row, price " +
+    @Query("select num_hall, num_place, num_row, price, session_id " +
             "from \"Hall\" join \"Session\" USING(num_hall)" +
             "join \"Ticket\" USING(session_id) " +
             "WHERE session_id = :ses_id")
-    Iterable<HallTicketDTO> findTicketsBySession_id(@Param("ses_id") Integer session_id);
+    List<HallTicketDTO> findTicketsBySession_id(@Param("ses_id") Integer session_id);
 
 }

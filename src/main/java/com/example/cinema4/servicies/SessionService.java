@@ -1,8 +1,6 @@
 package com.example.cinema4.servicies;
 
 import com.example.cinema4.DTO.SessionDTO;
-import com.example.cinema4.entity.Film;
-import com.example.cinema4.entity.Hall;
 import com.example.cinema4.entity.Session;
 import com.example.cinema4.repos.FilmRepos;
 import com.example.cinema4.repos.HallRepos;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
-import java.util.Optional;
 
 @Data
 @Service
@@ -26,7 +22,7 @@ public class SessionService {
     private final HallRepos hallRepos;
     private boolean result = true;
 
-    public boolean processingInputData(SessionDTO sessionDTO) {
+    public void processingInputData(SessionDTO sessionDTO) {
         String time_of_start = sessionDTO.getTime_of_start();
         String date_film = sessionDTO.getDate_film();
         String name_film = sessionDTO.getFilm_name();
@@ -40,7 +36,6 @@ public class SessionService {
         Integer filmId = filmRepos.findFilm_idByName_film(name_film);
 
         saveSession(num_hall, inTime, inDate, filmId);
-        return true;
     }
 
     private void saveSession(Integer num_hall, Time inputTime, Date inputDate, Integer filmId){

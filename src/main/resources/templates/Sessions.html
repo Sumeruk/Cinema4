@@ -77,7 +77,9 @@
     <ul>
         <li><a th:href="@{'/halls'}">Залы</a></li>
         <li><a th:href="@{'/films'}">Фильмы</a></li>
-<!--        <li><a th:href="@{'/tickets'}">Билеты</a></li>-->
+        <li><a th:href="@{'/clients'}">Клиенты</a></li>
+
+        <!--        <li><a th:href="@{'/tickets'}">Билеты</a></li>-->
     </ul>
 </div>
 <div>
@@ -101,7 +103,7 @@
 
     </form>
 </div>
-<p th:text="${resultOfSave} ? 'Ok' : 'Ошибка при сохранении. Данные введены неверно'"></p>
+<!--<p th:text="${resultOfSave} ? 'Ok' : 'Ошибка при сохранении. Данные введены неверно'"></p>-->
 <div>
     <table>
         <tr>
