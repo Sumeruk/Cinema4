@@ -37,10 +37,19 @@
             color: black;
         }
 
+        .hidden {
+            display: none;
+        }
+
+        .objects-on-the-right {
+            text-align: right;
+        }
+
         /*.inButton {*/
         /*    float: right;*/
         /*}*/
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <div class="menu">
@@ -52,23 +61,66 @@
 
     </ul>
 </div>
-<!--todo сделать красиво табличкой-->
+
 <div class="inButton">
-    <form method="post" th:action = "@{/tickets/{sessionId}/saveTicket}" th:object = "${newTicket}">
-        <input type="text">
-<!--        <label for="num_row">Выберите место:</label>-->
-<!--        <select id="num_row" name="num_row" th:field="*{num_row}">-->
-<!--            <option th:each="key : ${keys}" th:value="${key}" th:text="${key}"></option>-->
-<!--        </select>-->
 
-<!--        <label for="num_place">Values:</label>-->
-<!--        <select id="num_place" name="num_place" th:field="*{num_row}">-->
-<!--            <option th:each="value : ${values}" th:value="${value}" th:text="${value}">Value</option>-->
-<!--        </select>-->
+    <tr th:each="seats : ${freeSeats}">
+        <td>
+            <form method="post" th:object="${newTicket}">
 
-        <button type="submit">Купить билет</button>
+                <label for="row">ряд</label>
+                <select id="row" name="rowValue" th:field="*{num_row}">
+                    <option th:each="value : ${seats.getKey()}" th:value="${value}" th:text="${value}"></option>
+                </select>
+
+                <label for="seats">Выберите место:</label>
+                <select id="seats" name="seatsValue" th:field="*{num_place}">
+                    <option th:each="value : ${seats.getValue()}" th:value="${value}" th:text="${value}"></option>
+                </select>
+
+                <button type="submit">Выбрать Место</button>
+            </form>
+        </td>
+    </tr>
+</div>
+
+<div>
+    <table>
+        <tr>КОРЗИНА</tr>
+        <tr>
+            <th>Зал</th>
+            <th>Место</th>
+            <th>Ряд</th>
+            <th>Цена</th>
+        </tr>
+        <tr th:each="ticket : ${ticketsInCart.getList()}">
+            <td>
+                <span th:text="${ticket.getNum_hall()}"></span>
+            </td>
+            <td>
+                <span th:text="${ticket.getNum_place()}"></span>
+            </td>
+            <td>
+                <span th:text="${ticket.getNum_row()}"></span>
+            </td>
+            <td>
+                <span th:text="${ticket.getPrice()}"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <form method="get" th:action="@{/ticket/saveCart}">
+        <button type="submit">Checkout</button>
     </form>
 </div>
+
+<div id="confirmationMessage" style="display: none;">
+    <!-- Здесь будет отображаться сообщение о покупке после отправки формы -->
+    Билеты куплены! Спасибо за покупку!
+</div>
+
 <div>
 
     <table id="myTable">
@@ -96,7 +148,5 @@
     </table>
     <!--    </form>-->
 </div>
-
-
 </body>
 </html>

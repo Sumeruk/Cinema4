@@ -6,15 +6,23 @@ import com.example.cinema4.entity.Client;
 import com.example.cinema4.repos.ClientRepos;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 @Data
 @RequiredArgsConstructor
 public class ClientService {
     private final ClientRepos clientRepos;
+
+    public List<Client> getClient(String name){
+        System.out.println(clientRepos.findClientByName(name));
+
+        return clientRepos.findClientByName(name);
+    }
 
     public void processingInputData(ClientDTO clientDTO) {
         String name = clientDTO.getName();

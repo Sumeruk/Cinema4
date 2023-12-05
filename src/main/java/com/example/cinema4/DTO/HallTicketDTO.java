@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class HallTicketDTO {
+    private Long ticket_id;
     private Long num_hall;
     private Integer num_place;
     private Integer num_row;

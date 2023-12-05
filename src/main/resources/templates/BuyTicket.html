@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            Купленные билеты
+        </tr>
+        <tr>
+            <th>Зал</th>
+            <th>Ряд</th>
+            <th>Место</th>
+        </tr>
+        <tr th:each="boughtTicket : ${infoFromCart}">
+            <td th:text="${boughtTicket.getNum_hall()}"></td>
+            <td th:text="${boughtTicket.getNum_row()}"></td>
+            <td th:text="${boughtTicket.getNum_place()}"></td>
+            <td th:text="${boughtTicket.getPrice()}"></td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <form method="post" th:action="'/tickets/buyTicket/' + ${clientInfo.getClient_id()}">
+        <button type="submit">Купить</button>
+    </form>
+</div>
+</body>
+</html>

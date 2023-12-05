@@ -23,8 +23,9 @@ public interface SessionRepos extends CrudRepository<Session, Long> {
             " FROM \"Film\" JOIN \"Session\" USING(film_id)" +
             "ORDER BY date_film, time_of_start")
     List<FilmSessionDTO> findAllWithNameFilm();
-    @Query("SELECT film_id FROM \"Film\" WHERE name_film = :name_film")
-    Integer findSession_idByName_film(@Param("name_film") String name_film);
+
+    @Query("SELECT num_hall FROM \"Session\" WHERE session_id = :session_id")
+    Integer findNumHallBySession_id(@Param("session_id") Long session_id);
 
 
 }

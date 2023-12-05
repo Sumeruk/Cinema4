@@ -47,10 +47,10 @@
 </div>
 
 <div>
-    <form method="post" th:action="@{/clients/newClient}" th:object="${newClient}">
+    <form method="post" th:action="@{/clients/newClient}" th:object="${client}">
 
         <label for="name">Введите имя фамилию</label>
-        <input id="name" th:field="*{name}" type="text"
+        <input id="name" name="name" th:field="*{name}" type="text"
                onkeydown="navigateInputs(event, 'birthday')" placeholder="Введите имя фамилию ">
 
         <label for="birthday">Введите дату рождения:</label>
@@ -59,8 +59,34 @@
 
         <p class="error-message" id="errorMessage"></p>
 
-        <button type="submit" onclick="validateForm(event)">Добавить</button>
+        <button type="submit" name="submitButton" onclick="validateForm(event)" value="addButton" id="addButton">Добавить</button>
+
     </form>
+</div>
+
+<div>
+    <form method="get" th:action="@{/clients/foundClients}">
+        <input id="inName" name="inName" type="text">
+
+        <button type="submit">Найти человечка</button>
+    </form>
+</div>
+
+<div>
+    <table id="tableHrefClients">
+        <tr>
+            <th>Имя</th>
+            <th>Дата рождения</th>
+        </tr>
+        <tr th:each="hrefClient : ${hrefClients}">
+            <td>
+                <a th:href="@{'/tickets/buyTicket/' + ${hrefClient.getClient_id()}}" th:text="${hrefClient.getName()}"></a>
+            </td>
+            <td>
+                <span th:text="${hrefClient.getBirthday()}"></span>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div>
@@ -105,8 +131,6 @@
             dateInput.value = '';
             return;
         }
-
-
 
         // Если дата и время прошли проверку, очищаем сообщение об ошибке
         errorMessage.textContent = '';

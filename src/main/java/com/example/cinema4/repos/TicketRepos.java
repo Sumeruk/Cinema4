@@ -13,7 +13,7 @@ import java.util.List;
 public interface TicketRepos extends CrudRepository<Ticket, Long> {
     @Query("SELECT * FROM public.\"Ticket\" WHERE session_id = :ses_id")
     Iterable<Ticket> findAllBySession_id(@Param("ses_id") Integer session_id);
-    @Query("select num_hall, num_place, num_row, price, session_id " +
+    @Query("select ticket_id, num_hall, num_place, num_row, price, session_id " +
             "from \"Hall\" join \"Session\" USING(num_hall)" +
             "join \"Ticket\" USING(session_id) " +
             "WHERE session_id = :ses_id")
