@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -33,21 +30,37 @@ public class SessionController {
         model.addAttribute("filmSessions", sessionRepos.findAllWithNameFilm());
         model.addAttribute("resultOfSave", sessionService.isResult());
         model.addAttribute("halls", hallRepos.findNum_hall());
-        model.addAttribute("films", filmRepos.findFilm_id());
+        model.addAttribute("films", filmRepos.findAll());
         return "Sessions";
     }
 
     @PostMapping("/sessions/newSession")
-    public String saveSession(@ModelAttribute("newSession") SessionDTO sessionDTO, Model model) throws ParseException {
+    public String saveSession(@ModelAttribute("newSession") SessionDTO sessionDTO, Model model){
         sessionService.processingInputData(sessionDTO);
         model.addAttribute("resultOfSave", sessionService.isResult());
         return "redirect:/sessions";
     }
 
+    @GetMapping("/sessions/update/{sessionId}")
+    public String updateSession(@PathVariable Long sessionId, Model model){
+        model.addAttribute("oldSession", sessionRepos.findAllWithNameFilmBySession_id(sessionId));
+        model.addAttribute("updSession", new SessionDTO());
+        model.addAttribute("films", filmRepos.findAll());
+        model.addAttribute("halls", hallRepos.findAll());
+        return "update_session";
+    }
 
-    @PostMapping("/sessionsByFilms")
-    public String findFilms(@RequestParam("name_film") String name_film, Model model){
-        model.addAttribute("sessionsWithFilm",sessionRepos.findAllByNameFilm(name_film));
-        return "Sessions";
+    @PostMapping("/sessions/update/{sessionId}")
+    public String saveUpdSession(@PathVariable Long sessionId, @ModelAttribute("updSession") SessionDTO sessionDTO, Model model){
+        Session oldSession = sessionRepos.findSessionBySession_id(sessionId);
+        sessionService.saveUpdSession(oldSession, sessionDTO);
+        return "redirect:/sessions";
+    }
+
+    //todo посмотреть в таблице удаление сеанса из билетов
+    @GetMapping("/sessions/delete/{id}")
+    public String deleteFilmInformation( @PathVariable Long id){
+        sessionRepos.deleteById(id);
+        return "redirect:/sessions";
     }
 }

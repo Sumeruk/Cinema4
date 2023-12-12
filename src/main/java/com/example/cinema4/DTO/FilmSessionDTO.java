@@ -8,6 +8,7 @@ import java.sql.Time;
 
 @Data
 public class FilmSessionDTO {
+    private Integer num_hall;
     private String name_film;
     private Long session_id;
     private Time time_of_start;

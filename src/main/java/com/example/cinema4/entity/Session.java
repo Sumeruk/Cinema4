@@ -19,13 +19,11 @@ public class Session {
     private int numHall;
     private Time time_of_start;
     @Column("film_id")
-    private int filmId;
+    private Long filmId;
     private Date date_film;
-//    @MappedCollection(idColumn = "session_id", keyColumn = "session_id")
-//    private final Set<Ticket> tickets;
 
 
-    public Session(int numHall, Time time_of_start, int filmId, Date date_film) {
+    public Session(int numHall, Time time_of_start, Long filmId, Date date_film) {
         this.numHall = numHall;
         this.time_of_start = time_of_start;
         this.filmId = filmId;

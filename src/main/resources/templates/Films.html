@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Фильмы</title>
 
     <style>
@@ -84,11 +84,19 @@
 </div>
 
 <div>
-    <form method="post"  th:object="${film}" >
-        <input th:field="*{name_film}" type="text"  placeholder="Название фильма">
-        <input type="number"  th:field="*{age_limit}"  placeholder="Возрастное ограничение">
-        <input type="number" th:field="*{duration}" placeholder="Длительность" >
-        <input type="text" th:field="*{genre}" placeholder="Жанр">
+    <form method="post" th:object="${film}">
+        <label for="name">Название</label>
+            <input id="name" th:field="*{name_film}" type="text" placeholder="Название фильма">
+
+        <label for="age">Возрастное ограничение</label>
+            <input id="age" type="number" th:field="*{age_limit}" placeholder="Возрастное ограничение">
+
+        <label for="duration">Длительность</label>
+            <input id="duration" type="number" th:field="*{duration}" placeholder="Длительность">
+
+        <label for="genre">Жанр</label>
+        <input id="genre" type="text" th:field="*{genre}" placeholder="Жанр">
+
         <button type="submit">Добавить</button>
 
     </form>
@@ -102,13 +110,14 @@
     </tr>
     <tr th:each="filmec : ${films}">
         <td>
-            <a  th:href="@{'/film/film_id/' + ${filmec.getFilm_id()}}" th:text="${filmec.getName_film()}"/>
+            <a th:href="@{'/film/film_id/' + ${filmec.getFilm_id()}}" th:text="${filmec.getName_film()}"/>
         </td>
         <td>
-             Edit
+            <a th:href="@{'/film/update/' + ${filmec.getFilm_id()}}" th:text="Edit"/>
         </td>
         <td>
-            <a th:href="@{'/film/delete/' + ${filmec.getFilm_id()}}" th:text="Delete" />
+            <a th:href="@{'/film/delete/' + ${filmec.getFilm_id()}}" th:text="Delete"
+               onclick="return confirm('Вы уверены, что хотите удалить фильм?');"/>
         </td>
     </tr>
 </table>

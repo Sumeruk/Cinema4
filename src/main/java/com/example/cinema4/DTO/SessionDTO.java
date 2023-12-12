@@ -10,6 +10,7 @@ public class SessionDTO {
 
     private int numHall;
     private String time_of_start;
-    private String film_name;
+    private Long film_id;
     private String date_film;
+
 }

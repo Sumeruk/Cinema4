@@ -49,7 +49,6 @@
         /*    float: right;*/
         /*}*/
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <div class="menu">
@@ -84,8 +83,10 @@
     </tr>
 </div>
 
+<p></p>
+
 <div>
-    <table>
+    <table class="cartTable" th:if="${not #lists.isEmpty(ticketsInCart.getList())}">
         <tr>КОРЗИНА</tr>
         <tr>
             <th>Зал</th>
@@ -107,17 +108,14 @@
                 <span th:text="${ticket.getPrice()}"></span>
             </td>
         </tr>
+        <form method="get" th:action="@{/ticket/saveCart}">
+            <button type="submit" id="checkButton">Купить</button>
+        </form>
+
     </table>
 </div>
 
-<div>
-    <form method="get" th:action="@{/ticket/saveCart}">
-        <button type="submit">Checkout</button>
-    </form>
-</div>
-
 <div id="confirmationMessage" style="display: none;">
-    <!-- Здесь будет отображаться сообщение о покупке после отправки формы -->
     Билеты куплены! Спасибо за покупку!
 </div>
 
@@ -146,7 +144,7 @@
         </tr>
 
     </table>
-    <!--    </form>-->
 </div>
+
 </body>
 </html>

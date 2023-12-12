@@ -26,6 +26,7 @@ public class Hall {
                 ", num_of_row=" + num_of_row +
                 ", num_of_seat_row=" + num_of_seat_row +
                 '}';
+
     }
 
 }

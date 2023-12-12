@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Обновление информации о фильме</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            background-color: #333;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:hover {
+            border-color: #66afe9;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        input:active {
+            border-color: #0056b3;
+        }
+
+        a {
+            color: #007bff; /* Цвет текста */
+            text-decoration: none; /* Убираем подчеркивание */
+            transition: color 0.3s; /* Плавное изменение цвета при наведении */
+        }
+
+        /* Стили для наведения на ссылку */
+        a:hover {
+            color: #0056b3; /* Новый цвет текста при наведении */
+        }
+
+    </style>
+</head>
+<body>
+<div class="menu">
+    <ul>
+        <li><a th:href="@{'/films'}">Назад</a></li>
+    </ul>
+</div>
+
+<h1>Обновление информации</h1>
+
+<b>Акутальная информация</b>
+
+<div>
+    <table>
+        <tr>
+            <th>Название фильма</th>
+            <th>Продолжительность</th>
+            <th>Возрастное ограничение</th>
+            <th>Жанр</th>
+        </tr>
+        <tr th:each="filmec : ${film}">
+            <td>
+                <span th:text="${filmec.getName_film()}"></span>
+            </td>
+            <td>
+                <span th:text="${filmec.getAge_limit()}"></span>
+            </td>
+            <td>
+                <span th:text="${filmec.getDuration()}"></span>
+            </td>
+
+            <td>
+                <span th:text="${filmec.getGenre()}"></span>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<b>Новая информация</b>
+<div>
+    <form method="post" th:object="${newFilm}">
+        <label for="name_film">Название фильма</label>
+            <input id="name_film" th:field="*{name_film}">
+        <label for="age_limit">Возрастное ограничение</label>
+        <select id="age_limit" name="age_limit" th:field="*{age_limit}">
+            <option th:value="-1"></option>
+            <option th:value="0">0</option>
+            <option th:value="6">6</option>
+            <option th:value="12">12</option>
+            <option th:value="16">16</option>
+            <option th:value="18">18</option>
+            <option th:value="21">21</option>
+        </select>
+        <label for="duration">Продолжительность</label>
+            <input id="duration" type="number" th:field="*{duration}">
+        <label for="genre">Жанр</label>
+            <select id="genre" th:field="*{genre}">
+                <option th:value="null"  th:text="ничего"></option>
+                <option th:value="comedy" >комедия</option>
+                <option th:value="action">Экшн</option>
+                <option th:value="drama">Драма</option>
+                <option th:value="animated_film">Мультик</option>
+                <option th:value="western">Вестерн</option>
+                <option th:value="fantasy">Фэнтези</option>
+            </select>
+
+        <button type="submit">Обновить</button>
+    </form>
+</div>
+
+</body>
+</html>

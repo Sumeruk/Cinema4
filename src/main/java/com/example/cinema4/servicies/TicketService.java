@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -22,10 +23,10 @@ public class TicketService {
     private final TicketRepos ticketRepos;
     private Ticket ticketToSave;
     private final SessionRepos sessionRepos;
-    
+
     public void saveCartOfTickets(HallTicketCartDTO hallTicketCartDTO, Long client_id){
         List<HallTicketDTO> hallTicketDTOS = hallTicketCartDTO.getList();
-
+        System.out.println(hallTicketDTOS);
         for (HallTicketDTO hallTicketDTO : hallTicketDTOS) {
             ticketToSave.setNum_place(hallTicketDTO.getNum_place());
             ticketToSave.setNum_row(hallTicketDTO.getNum_row());
@@ -34,6 +35,8 @@ public class TicketService {
             ticketToSave.setSession_id(hallTicketDTO.getSession_id());
 
             ticketRepos.save(ticketToSave);
+
+            ticketToSave = new Ticket();
         }
 
     }
@@ -45,7 +48,6 @@ public class TicketService {
         int totalRow = hallRepos.findNum_of_rowByNum_hall(num_hall);
 
         if(hallTicketDTOList.isEmpty()){
-            System.out.println("Cписок пуст");
 
             return getAllPlaces(totalSeatsInRow,totalRow);
         }
